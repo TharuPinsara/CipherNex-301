@@ -1,0 +1,102 @@
+
+█▀▀ █ █▀█ █░█ █▀▀ █▀█ █▄░█ █▀▀ ▀▄▀   ▄▄ ▀▄█  █▀█ ▄█
+█▄▄ █ █▀▀ █▀█ ██▄ █▀▄ █░▀█ ██▄ █░█   ░░ ▄▄█  █▄█ ░█
+
+
+# CipherNex-301 Ground Segment - Consolidated Mission Log
+# Source: Northstar Orbital Systems Ground Station Network
+# Archive Reference: CNX301 / RADIO / 09-24
+# Classification: RESTRICTED - Internal Distribution Only
+#
+# ===========================================================
+# SPACECRAFT IDENTIFICATION
+# ===========================================================
+# Designation      : CipherNex-301 (CNX-301)
+# NORAD ID         : 99147
+# COSPAR ID        : 2024-041C
+# Operator         : Northstar Orbital Systems
+# Mission Type     : Experimental RF Beacon / Signal Integrity Research
+# Launch Date      : 2024-03-18
+# Launch Vehicle   : Falcon 9 Block 5 (Transporter-10 rideshare)
+# Launch Site      : SLC-4E, Vandenberg SFB
+# Initial Orbit    : SSO 520 x 535 km, 51.64° inclination
+# Mass             : 12.4 kg (3U CubeSat)
+# Bus              : Custom NEX-Bus v2.1
+# Orbital Epoch    : 24256.41738426
+# Power            : Deployable solar arrays + Li-ion battery pack
+# Comm System      : UHF Beacon (437.125 MHz) / S-Band Telemetry
+# Primary Payload  : Adaptive Signal Encoding Experiment (ASEE)
+# Expected Life    : 18-24 months (drag-limited)
+# Status (last)    : EXTENDED SILENCE / LOSS OF SIGNAL
+#
+# ===========================================================
+# GROUND STATION NETWORK
+# ===========================================================
+# GS-01 : Fairbanks, Alaska          (Primary polar station)
+# GS-02 : Svalbard, Norway
+# GS-03 : Inuvik, Canada
+# GS-04 : Perth, Australia
+# GS-05 : Santiago, Chile
+# GS-06 : Mauritius
+# GS-07 : Singapore
+# GS-08 : Hawaii (Kauai)
+#
+# ===========================================================
+# SECTION A: NOMINAL OPERATIONS (MAR 2024 - SEP 2024)
+# Format: TIMESTAMP_UTC STATION EVENT NOTE
+# ===========================================================
+2024-03-19T06:02:11Z GS-01  LAUNCH_ACQUISITION   Initial signal acquisition post-deployment
+2024-03-19T14:18:44Z GS-02  DEPLOY_CONFIRM       Solar array deployment confirmed
+2024-03-20T09:33:17Z GS-04  FIRST_CONTACT        First complete telemetry pass
+2024-03-22T11:47:03Z GS-04  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-03-28T03:12:55Z GS-07  BEACON_DETECTED      Routine identification burst
+2024-04-05T02:15:40Z GS-02  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-04-11T16:48:29Z GS-01  POWER_STATUS         Battery SOC 94%, arrays nominal
+2024-04-18T20:33:57Z GS-06  BEACON_DETECTED      Routine identification burst
+2024-04-25T07:09:14Z GS-03  ATTITUDE_OK          ADCS stable, pointing error <0.5°
+2024-05-02T08:09:12Z GS-03  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-05-09T21:44:03Z GS-08  THERMAL_NOMINAL      Bus temperature within limits
+2024-05-15T12:27:38Z GS-05  BEACON_DETECTED      Routine identification burst
+2024-05-21T15:44:29Z GS-05  WEAK_SIGNAL          Low elevation pass
+2024-05-30T04:56:11Z GS-02  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-06-03T04:27:51Z GS-07  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-06-12T18:03:47Z GS-04  ORBIT_UPDATE        TLE refreshed, mean motion stable
+2024-06-19T22:58:36Z GS-08  BEACON_DETECTED      Routine identification burst
+2024-06-27T09:41:22Z GS-01  PAYLOAD_HEALTH       ASEE experiment running nominal
+2024-07-04T09:12:03Z GS-01  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-07-11T14:28:55Z GS-06  BEACON_DETECTED      Routine identification burst
+2024-07-18T02:17:09Z GS-03  POWER_STATUS         Battery SOC 91%, slight seasonal drop
+2024-07-22T17:36:48Z GS-04  WEAK_SIGNAL          Low elevation pass
+2024-07-29T11:05:33Z GS-07  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-08-06T03:51:22Z GS-02  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-08-14T13:04:57Z GS-06  ORBIT_DECAY_NOTE     Minor altitude decay logged, within tolerance
+2024-08-19T20:48:14Z GS-05  BEACON_DETECTED      Routine identification burst
+2024-08-27T21:19:34Z GS-03  BEACON_DETECTED      Routine identification burst
+2024-09-01T05:42:10Z GS-05  TELEMETRY_RECEIVED   Nominal housekeeping frame
+2024-09-03T16:14:28Z GS-08  ATTITUDE_OK          ADCS still stable
+2024-09-06T12:07:45Z GS-07  ANOMALY_FLAG         Unscheduled beacon interval shift detected
+2024-09-09T18:23:19Z GS-08  WEAK_SIGNAL          Signal degradation trend begins
+2024-09-10T07:51:06Z GS-01  ANOMALY_FLAG         Beacon timing drift increasing
+2024-09-11T22:36:44Z GS-04  WEAK_SIGNAL          SNR dropping across multiple stations
+#
+# ===========================================================
+# SECTION B: FINAL TRANSMISSION WINDOW (12-17 SEP 2024)
+# Format: [SEQ] TIMESTAMP_UTC STATION EVENT PAYLOAD=<hex>
+# Frame buffers below are the last confirmed transmissions
+# before the spacecraft entered extended silence.
+# ===========================================================
+[001] 2024-09-12T08:41:03Z GS-04  BEACON_DETECTED    PAYLOAD=434950
+[002] 2024-09-12T14:32:47Z GS-07  TELEMETRY_RECEIVED PAYLOAD=484552
+[003] 2024-09-13T06:17:52Z GS-02  WEAK_SIGNAL        PAYLOAD=4e4558
+[004] 2024-09-13T22:03:11Z GS-05  TELEMETRY_RECEIVED PAYLOAD=7b6768
+[005] 2024-09-14T09:26:34Z GS-01  BEACON_DETECTED    PAYLOAD=6f7374
+[006] 2024-09-14T19:44:20Z GS-07  BEACON_DETECTED    PAYLOAD=5f7369
+[007] 2024-09-15T03:12:58Z GS-05  NO_SIGNAL          PAYLOAD=676e61
+[008] 2024-09-15T17:09:44Z GS-03  TELEMETRY_RECEIVED PAYLOAD=6c5f72
+[009] 2024-09-16T11:55:02Z GS-06  WEAK_SIGNAL        PAYLOAD=65636f
+[010] 2024-09-16T23:41:17Z GS-08  TELEMETRY_RECEIVED PAYLOAD=766572
+[011] 2024-09-17T05:20:39Z GS-04  SIGNAL_LOST        PAYLOAD=65647d
+# ===========================================================
+# END OF LOG - satellite entered extended silence following seq 011
+# No further confirmed contacts after 2024-09-17T05:20:39Z
+# Recovery attempts ongoing as of archive date.
