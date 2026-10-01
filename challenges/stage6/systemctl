@@ -1,0 +1,132 @@
+#!/bin/bash
+# ==============================================================================
+# CipherNex-301 // Stage 6 Systemctl Mock
+# Provides realistic Ubuntu system daemon & timer enumeration
+# ==============================================================================
+
+CMD="$*"
+
+# --- 1. SYSTEMCTL LIST-TIMERS ---
+if [[ "$CMD" == *"list-timers"* ]]; then
+    NOW=$(date +%s)
+    D_NEXT1=$(date -d "@$((NOW + 14))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_LAST1=$(date -d "@$((NOW - 16))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_NEXT2=$(date -d "@$((NOW + 1800))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_LAST2=$(date -d "@$((NOW - 14400))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_NEXT3=$(date -d "@$((NOW + 7200))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_LAST3=$(date -d "@$((NOW - 28800))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_NEXT4=$(date -d "@$((NOW + 21600))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_LAST4=$(date -d "@$((NOW - 64800))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_NEXT5=$(date -d "@$((NOW + 43200))" "+%a %Y-%m-%d %H:%M:%S %Z")
+    D_LAST5=$(date -d "@$((NOW - 43200))" "+%a %Y-%m-%d %H:%M:%S %Z")
+
+    cat << EOF
+NEXT                         LEFT          LAST                         PASSED       UNIT                         ACTIVATES
+$D_NEXT1 14s left      $D_LAST1 16s ago      orbital-sync.timer           orbital-sync.service
+$D_NEXT2 30min left    $D_LAST2 4h ago       motd-news.timer              motd-news.service
+$D_NEXT3 2h left       $D_LAST3 8h ago       apt-daily.timer              apt-daily.service
+$D_NEXT4 6h left       $D_LAST4 18h ago      logrotate.timer              logrotate.service
+$D_NEXT5 12h left      $D_LAST5 12h ago      systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
+n/a                          n/a           Sun 2026-10-04 00:00:00 UTC  4d ago       fstrim.timer                 fstrim.service
+
+6 timers listed.
+Pass --all to see loaded but inactive timers, too.
+EOF
+    exit 0
+
+# --- 2. SYSTEMCTL LIST-UNITS / SERVICES ---
+elif [[ "$CMD" == *"list-units"* ]] || [[ "$CMD" == *"list-unit-files"* ]]; then
+    cat << EOF
+  UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+  cron.service                       loaded active running Regular background program processing daemon
+  dbus.service                       loaded active running D-Bus System Message Bus
+  getty@tty1.service                 loaded active running Getty on tty1
+  networkd-dispatcher.service        loaded active running Dispatcher daemon for systemd-networkd
+  orbital-sync.service               loaded active waiting Operational telemetry synchronization daemon
+  rsyslog.service                    loaded active running System Logging Service
+  ssh.service                        loaded active running OpenBSD Secure Shell server
+  systemd-journald.service           loaded active running Journal Service
+  systemd-logind.service             loaded active running User Login Management
+  systemd-resolved.service           loaded active running Network Name Resolution
+  systemd-udevd.service              loaded active running Rule-based Manager for Device Events and Files
+  ufw.service                        loaded active exited  Uncomplicated firewall
+  unattended-upgrades.service        loaded active running Keep Ubuntu machines up to date automatically
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+13 loaded units listed.
+EOF
+    exit 0
+
+# --- 3. STATUS CHECKS (VULNERABLE TARGET) ---
+elif [[ "$CMD" == *"status orbital-sync.service"* ]] || [[ "$CMD" == *"status orbital-sync"* ]]; then
+    cat << EOF
+● orbital-sync.service - Operational telemetry synchronization daemon
+     Loaded: loaded (/etc/systemd/system/orbital-sync.service; enabled; vendor preset: enabled)
+     Active: active (running) since $(date -d "-15 minutes" "+%a %Y-%m-%d %H:%M:%S %Z")
+   Main PID: 842 (sync_job.sh)
+      Tasks: 2 (limit: 512)
+     Memory: 1.8M
+     CGroup: /system.slice/orbital-sync.service
+             ├─842 /bin/bash /opt/orbital-sync/sync_job.sh
+             └─849 sleep 30
+EOF
+    exit 0
+
+elif [[ "$CMD" == *"status orbital-sync.timer"* ]]; then
+    cat << EOF
+● orbital-sync.timer - Periodic trigger for orbital telemetry synchronization
+     Loaded: loaded (/etc/systemd/system/orbital-sync.timer; enabled; vendor preset: enabled)
+     Active: active (waiting) since $(date -d "-1 hour" "+%a %Y-%m-%d %H:%M:%S %Z")
+    Trigger: orbital-sync.service
+   Triggers: ● orbital-sync.service
+EOF
+    exit 0
+
+# --- 4. STATUS CHECKS (GENERIC DECOY SERVICES) ---
+elif [[ "$CMD" == *"status logrotate"* ]]; then
+    cat << EOF
+● logrotate.service - Rotate log files
+     Loaded: loaded (/lib/systemd/system/logrotate.service; static)
+     Active: inactive (dead) since $(date -d "-4 hours" "+%a %Y-%m-%d %H:%M:%S %Z")
+TriggeredBy: ● logrotate.timer
+       Docs: man:logrotate(8)
+EOF
+    exit 0
+
+elif [[ "$CMD" == *"status apt-daily"* ]]; then
+    cat << EOF
+● apt-daily.service - Daily apt download activities
+     Loaded: loaded (/lib/systemd/system/apt-daily.service; static)
+     Active: inactive (dead) since $(date -d "-2 hours" "+%a %Y-%m-%d %H:%M:%S %Z")
+TriggeredBy: ● apt-daily.timer
+       Docs: man:apt(8)
+EOF
+    exit 0
+
+elif [[ "$CMD" == *"status motd-news"* ]]; then
+    cat << EOF
+● motd-news.service - Message of the Day
+     Loaded: loaded (/lib/systemd/system/motd-news.service; static)
+     Active: inactive (dead) since $(date -d "-15 minutes" "+%a %Y-%m-%d %H:%M:%S %Z")
+TriggeredBy: ● motd-news.timer
+       Docs: man:motd-news(8)
+EOF
+    exit 0
+
+elif [[ "$CMD" == *"status fstrim"* ]]; then
+    cat << EOF
+● fstrim.service - Discard unused blocks on filesystems
+     Loaded: loaded (/lib/systemd/system/fstrim.service; static)
+     Active: inactive (dead) since $(date -d "-3 days" "+%a %Y-%m-%d %H:%M:%S %Z")
+TriggeredBy: ● fstrim.timer
+       Docs: man:fstrim(8)
+EOF
+    exit 0
+
+# --- 5. FALLBACK PASS-THROUGH ---
+else
+    /bin/systemctl.real "$@" 2>/dev/null || /bin/true
+    exit 0
+fi

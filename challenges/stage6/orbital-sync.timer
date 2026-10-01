@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodic trigger for orbital-sync telemetry daemon
+
+[Timer]
+OnBootSec=10s
+OnUnitActiveSec=30s
+Unit=orbital-sync.service
+
+[Install]
+WantedBy=timers.target

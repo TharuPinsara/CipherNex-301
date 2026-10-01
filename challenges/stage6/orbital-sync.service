@@ -1,0 +1,11 @@
+[Unit]
+Description=CipherNex-301 Orbital Telemetry Sync Daemon
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/orbital-sync/sync_job.sh
+
+[Install]
+WantedBy=multi-user.target
