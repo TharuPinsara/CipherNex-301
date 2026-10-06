@@ -6,66 +6,45 @@
     <title>CipherNex-301 // Next-Gen Space Security CTF</title>
     <link rel="icon" type="image/png" href="CipherNex Logo.png">
 
-    <!-- Google Fonts: Space Mono & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================================
-           CUSTOM FONT — HACKDADDY
-        ========================================================= */
         @font-face {
             font-family: "HackDaddy";
-            src:
-                url("Fonts/hackdaddy/Hackdaddy.otf") format("opentype"),
-                url("Stage 1/Web/Stage-1/Fonts/hackdaddy/Hackdaddy.otf") format("opentype"),
-                url("Fonts/HackDaddy.woff2") format("woff2"),
-                url("fonts/HackDaddy.woff") format("woff"),
-                url("fonts/HackDaddy.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
+            src: url("Fonts/hackdaddy/Hackdaddy.otf") format("opentype"),
+                 url("Stage 1/Web/Stage-1/Fonts/hackdaddy/Hackdaddy.otf") format("opentype"),
+                 url("Fonts/HackDaddy.woff2") format("woff2");
+            font-weight: normal; font-style: normal; font-display: swap;
         }
 
-        /* =========================================================
-           CYBERGUARD DESIGN SYSTEM TOKENS
-        ========================================================= */
         :root {
-            --bg-body: #060B18;
-            --bg-nav: rgba(6, 11, 24, 0.85);
-            --bg-card: rgba(13, 22, 46, 0.75);
-            --bg-card-hover: rgba(18, 30, 62, 0.9);
-            --bg-card-active: rgba(16, 29, 64, 0.95);
-            
+            --bg-body: #050A16;
+            --bg-nav: rgba(5, 10, 22, 0.90);
+            --bg-card: rgba(11, 20, 42, 0.82);
+            --bg-card-hover: rgba(16, 29, 60, 0.92);
+            --bg-card-active: rgba(13, 27, 62, 0.95);
+            --bg-subtle: rgba(7, 14, 30, 0.75);
             --brand-blue: #2563EB;
-            --brand-blue-glow: rgba(37, 99, 235, 0.4);
             --brand-cyan: #38BDF8;
-            --brand-indigo: #4F46E5;
+            --brand-sky: #7DD3FC;
             --success-green: #10B981;
-            --success-glow: rgba(16, 185, 129, 0.35);
             --danger-red: #EF4444;
-
-            --border-card: rgba(59, 130, 246, 0.18);
-            --border-focus: #38BDF8;
-            --border-active: #2563EB;
-
+            --warning-amber: #F59E0B;
+            --border-card: rgba(56, 189, 248, 0.16);
+            --border-card-active: rgba(56, 189, 248, 0.45);
+            --border-card-cleared: rgba(16, 185, 129, 0.35);
             --text-pure: #FFFFFF;
             --text-primary: #F1F5F9;
             --text-secondary: #94A3B8;
             --text-muted: #64748B;
-
             --font-display: "HackDaddy", 'Plus Jakarta Sans', sans-serif;
             --font-ui: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'Space Mono', monospace;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: var(--bg-body);
             color: var(--text-primary);
@@ -75,688 +54,300 @@
             line-height: 1.6;
         }
 
-        /* Ambient Glow & Grid Accents */
         .ambient-gradient-1 {
-            position: fixed;
-            top: -150px;
-            left: 20%;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(80px);
+            position: fixed; top: -180px; left: 15%; width: 750px; height: 750px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: -1; filter: blur(90px);
         }
-
         .ambient-gradient-2 {
-            position: fixed;
-            bottom: 5%;
-            right: 10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(90px);
+            position: fixed; bottom: 5%; right: 10%; width: 650px; height: 650px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: -1; filter: blur(95px);
         }
-
         .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 48px 48px;
-            pointer-events: none;
-            z-index: -2;
+            position: fixed; inset: 0;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px; pointer-events: none; z-index: -2;
         }
 
-        /* =========================================================
-           SPLASH / INTRO OVERLAY
-        ========================================================= */
-        #splash-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: #040813;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 24px;
-            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        /* ================= AUTHENTICATION OVERLAY ================= */
+        #auth-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #02050E;
+            display: flex; justify-content: center; align-items: center; padding: 24px;
+        }
+        #auth-overlay.hidden { display: none; }
+        
+        #splash-cyber-canvas { 
+            position: absolute; 
+            inset: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            opacity: 0.28; 
         }
 
-        #splash-screen.hidden {
-            opacity: 0;
-            transform: scale(1.04);
-            pointer-events: none;
-        }
-
-        .splash-modal {
-            background: rgba(13, 22, 46, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 55px 45px;
+        .auth-box {
+            position: relative; z-index: 10;
+            background: rgba(8, 17, 38, 0.94);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            backdrop-filter: blur(24px); border-radius: 20px;
+            padding: 40px; max-width: 460px; width: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(37,99,235,0.3);
             text-align: center;
-            max-width: 620px;
-            width: 100%;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(37, 99, 235, 0.2);
         }
-
-        .splash-logo {
-            width: 130px;
-            height: auto;
-            margin-bottom: 24px;
-            filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.6));
-            animation: floatSlow 4s infinite ease-in-out;
+        .auth-logo { width: 90px; margin-bottom: 12px; filter: drop-shadow(0 0 15px rgba(37,99,235,0.6)); }
+        .auth-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 22px; }
+        .auth-tab {
+            flex: 1; padding: 10px; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
+            color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent;
         }
-
-        .splash-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(37, 99, 235, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--brand-cyan);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 100px;
-            margin-bottom: 16px;
+        .auth-tab.active { color: var(--brand-cyan); border-color: var(--brand-cyan); }
+        .auth-form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
+        .auth-form label { font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; font-family: var(--font-mono); }
+        .auth-input {
+            background: rgba(6, 11, 24, 0.85); border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFF; padding: 12px 14px; border-radius: 8px; font-family: var(--font-ui); font-size: 0.9rem;
+            outline: none; transition: border-color 0.2s;
         }
-
-        .splash-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.4rem, 6vw, 3.6rem);
-            color: var(--text-pure);
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            line-height: 1.1;
+        .auth-input:focus { border-color: var(--brand-cyan); box-shadow: 0 0 12px rgba(56, 189, 248, 0.25); }
+        .btn-auth-submit {
+            margin-top: 10px; background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            color: #FFF; border: none; padding: 13px; font-weight: 700; border-radius: 8px; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4); font-family: var(--font-ui);
         }
+        .btn-auth-submit:hover { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+        .auth-msg { font-size: 0.82rem; font-family: var(--font-mono); min-height: 18px; margin-top: 8px; text-align: center; }
 
-        .splash-description {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 35px;
-            line-height: 1.6;
-        }
-
-        .btn-splash-primary {
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-            color: #FFFFFF;
-            border: none;
-            padding: 15px 38px;
-            font-family: var(--font-ui);
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-splash-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-        }
-
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* =========================================================
-           TOP NAVIGATION BAR (CYBERGUARD STYLE)
-        ========================================================= */
+        /* ================= NAVBAR ================= */
         .cyber-navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--bg-nav);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-card);
-            height: 72px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
+            position: sticky; top: 0; z-index: 100; background: var(--bg-nav);
+            backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-card);
+            height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+        }
+        .nav-left { display: flex; align-items: center; gap: 14px; }
+        .nav-logo { width: 36px; height: 36px; }
+        .nav-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--text-pure); letter-spacing: 1px; }
+        .nav-right { display: flex; align-items: center; gap: 18px; }
+        .team-pill {
+            background: rgba(56, 189, 248, 0.10); border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--brand-cyan); font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
+            padding: 6px 14px; border-radius: 100px;
+        }
+        .btn-admin-link {
+            background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(56, 189, 248, 0.35);
+            color: var(--brand-cyan); padding: 6px 14px; border-radius: 8px; font-family: var(--font-mono);
+            font-size: 0.8rem; text-decoration: none; font-weight: 700;
+        }
+        .btn-admin-link:hover { background: var(--brand-cyan); color: #02050E; }
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #F87171; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;
+            font-family: var(--font-mono);
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .nav-logo {
-            width: 36px;
-            height: 36px;
-            filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.5));
-        }
-
-        .nav-title {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            color: var(--text-pure);
-            letter-spacing: 1px;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .live-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--success-green);
-            padding: 5px 14px;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .live-pulse {
-            width: 8px;
-            height: 8px;
-            background: var(--success-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--success-green);
-            animation: pulse 1.6s infinite ease-in-out;
-        }
-
-        .btn-reset-session {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #F87171;
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .btn-reset-session:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #EF4444;
-            color: #FFF;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
-        }
-
-        /* =========================================================
-           MAIN CONTAINER & HERO SECTION
-        ========================================================= */
-        .cyber-container {
-            max-width: 1320px;
-            margin: 0 auto;
-            padding: 40px 24px 100px;
-        }
-
-        /* Hero Header Section */
-        .hero-section {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 50px;
-        }
-
+        /* ================= MAIN CONTAINER ================= */
+        .cyber-container { max-width: 1360px; margin: 0 auto; padding: 36px 24px 100px; }
+        
+        .hero-section { text-align: center; max-width: 1080px; margin: 0 auto 40px; }
         .hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(37, 99, 235, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            color: var(--brand-cyan);
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 100px;
-            margin-bottom: 20px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--brand-cyan); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 100px; margin-bottom: 20px;
         }
-
-        .hero-title {
-            font-size: clamp(2.4rem, 5vw, 3.8rem);
-            font-weight: 800;
-            color: var(--text-pure);
-            line-height: 1.15;
-            margin-bottom: 18px;
-            letter-spacing: -0.5px;
+        .hero-pill::before {
+            content: ""; width: 7px; height: 7px; background: var(--brand-cyan); border-radius: 50%;
+            box-shadow: 0 0 10px var(--brand-cyan);
         }
-
-        .hero-title span {
-            background: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero-title { font-size: clamp(2.3rem, 4.8vw, 3.7rem); font-weight: 800; color: var(--text-pure); line-height: 1.15; margin-bottom: 20px; }
+        .hero-title span { background: linear-gradient(135deg, #38BDF8, #2563EB); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Mission Scenario Dossier */
+        .scenario-dossier {
+            background: var(--bg-card); border: 1px solid var(--border-card); backdrop-filter: blur(18px);
+            border-radius: 16px; padding: 28px 32px; text-align: left; position: relative; margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
-
-        .hero-scenario-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            backdrop-filter: blur(16px);
-            border-radius: 16px;
-            padding: 24px 30px;
-            text-align: left;
-            margin-top: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-            position: relative;
+        .scenario-dossier::before {
+            content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 4px;
+            background: linear-gradient(180deg, var(--brand-cyan), var(--brand-blue)); border-radius: 0 4px 4px 0;
         }
-
-        .hero-scenario-card::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 20px;
-            bottom: 20px;
-            width: 4px;
-            background: linear-gradient(180deg, var(--brand-cyan), var(--brand-blue));
-            border-radius: 0 4px 4px 0;
+        .dossier-header {
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px; margin-bottom: 16px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--brand-cyan);
         }
-
-        .scenario-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+        .dossier-grid {
+            display: grid; grid-template-columns: 2.2fr 1fr; gap: 24px;
         }
-
-        .scenario-tag {
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: var(--brand-cyan);
-            text-transform: uppercase;
+        .dossier-body p {
+            color: var(--text-secondary); font-size: 0.94rem; line-height: 1.8; margin-bottom: 12px;
         }
-
-        .scenario-body {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.75;
+        .dossier-body strong { color: var(--text-pure); }
+        .dossier-meta {
+            background: var(--bg-subtle); border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px;
+            font-family: var(--font-mono); font-size: 0.78rem;
         }
+        .meta-row { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(255, 255, 255, 0.06); padding-bottom: 4px; }
+        .meta-key { color: var(--text-muted); }
+        .meta-val { color: var(--brand-sky); font-weight: 700; }
 
-        .scenario-body strong {
-            color: var(--text-pure);
-        }
+        /* HUD METRICS */
+        .hud-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; margin-bottom: 45px; }
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 24px 28px; }
+        .metric-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 14px; text-transform: uppercase; font-family: var(--font-mono); }
+        .progress-track { height: 10px; background: rgba(15, 23, 42, 0.8); border-radius: 100px; overflow: hidden; margin-bottom: 14px; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #2563EB, #38BDF8); width: 12.5%; transition: width 0.4s ease; }
 
-        /* =========================================================
-           METRICS & RULES CARDS
-        ========================================================= */
-        .hud-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 24px;
-            margin-bottom: 45px;
-        }
-
-        .metric-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 16px;
-            padding: 24px 28px;
-            backdrop-filter: blur(14px);
-        }
-
-        .metric-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .progress-track {
-            height: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 100px;
-            overflow: hidden;
-            margin-bottom: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #2563EB, #38BDF8);
-            border-radius: 100px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
-            transition: width 0.4s ease;
-        }
-
-        .metric-footer {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-
-        .metric-footer strong {
-            color: var(--text-pure);
-        }
-
-        .rules-items {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .rule-pill {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .rule-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--brand-cyan);
-            border-radius: 50%;
-            margin-top: 7px;
-            flex-shrink: 0;
-        }
-
-        .rule-pill strong {
-            color: var(--text-pure);
-        }
-
-        .rule-pill code {
-            color: var(--brand-cyan);
-            font-family: var(--font-mono);
-            background: rgba(56, 189, 248, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        /* =========================================================
-           8 STAGE CHALLENGE GRID
-        ========================================================= */
-        .section-header {
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--text-pure);
-        }
-
-        .stages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 24px;
-        }
-
+        /* ================= STAGE CARDS ================= */
+        .stages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        
         .stage-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 16px;
-            padding: 26px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 480px;
-            backdrop-filter: blur(14px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px;
+            padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; position: relative;
         }
-
-        .stage-box:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Active Stage */
         .stage-box.active {
-            border-color: var(--brand-cyan);
-            background: var(--bg-card-active);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(37, 99, 235, 0.2);
-            transform: translateY(-4px);
+            border-color: var(--border-card-active); background: var(--bg-card-active);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.25), inset 0 0 15px rgba(56, 189, 248, 0.05);
+            transform: translateY(-2px);
         }
-
-        /* Cleared Stage */
         .stage-box.cleared {
-            border-color: rgba(16, 185, 129, 0.35);
-            background: rgba(10, 24, 42, 0.7);
+            border-color: var(--border-card-cleared); background: rgba(8, 22, 40, 0.8);
         }
-
-        /* Locked Stage */
         .stage-box.locked {
-            opacity: 0.45;
-            background: rgba(8, 14, 28, 0.6);
-            border-color: rgba(255, 255, 255, 0.05);
-            filter: grayscale(0.2);
+            opacity: 0.55; border-color: rgba(255, 255, 255, 0.07); background: rgba(6, 12, 26, 0.65);
         }
 
-        .box-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
+        .box-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .box-code { font-family: var(--font-mono); font-size: 0.82rem; color: var(--brand-cyan); font-weight: 700; letter-spacing: 1px; }
+        .box-badge { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; font-family: var(--font-mono); }
+        .badge-active { background: rgba(37, 99, 235, 0.2); border: 1px solid var(--brand-cyan); color: var(--brand-cyan); }
+        .badge-cleared { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success-green); color: var(--success-green); }
+        .badge-locked { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-muted); }
 
-        .box-code {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--brand-cyan);
-            font-weight: 700;
+        .box-meta-strip {
+            display: flex; gap: 10px; align-items: center; margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);
         }
+        .box-meta-strip span { background: rgba(255, 255, 255, 0.04); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.05); }
 
-        .box-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 100px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+        .box-title { font-family: var(--font-display); font-size: 1.45rem; color: var(--text-pure); margin-bottom: 8px; letter-spacing: 0.5px; }
+        .box-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 18px; }
+
+        .box-telemetry-meta {
+            background: var(--bg-subtle); border: 1px solid rgba(255, 255, 255, 0.05); border-left: 2px solid var(--brand-cyan);
+            border-radius: 6px; padding: 8px 12px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted);
         }
+        .box-telemetry-meta strong { color: var(--brand-sky); }
 
-        .badge-active {
-            background: rgba(37, 99, 235, 0.2);
-            border: 1px solid var(--brand-cyan);
-            color: var(--brand-cyan);
-        }
-
-        .badge-cleared {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid var(--success-green);
-            color: var(--success-green);
-        }
-
-        .badge-locked {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--text-muted);
-            color: var(--text-muted);
-        }
-
-        .box-title {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            color: var(--text-pure);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .box-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            margin-bottom: 14px;
-        }
-
-        .box-meta span {
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        .box-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        /* Action Buttons */
-        .box-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 18px;
+        /* Unified Action Shelf (Removes Blank Space & Gaps) */
+        .box-action-shelf {
+            display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;
         }
 
         .btn-launch-console {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px 16px;
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-            color: #FFFFFF !important;
-            font-family: var(--font-ui);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
-            transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 14px;
+            background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #FFF !important; font-weight: 700;
+            text-decoration: none; border-radius: 8px; font-size: 0.86rem; transition: background 0.2s, box-shadow 0.2s;
+            font-family: var(--font-mono);
         }
-
-        .btn-launch-console:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.5);
-        }
-
+        .btn-launch-console:hover { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 0 15px rgba(37,99,235,0.4); }
+        
         .btn-download-file {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 7px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            width: fit-content;
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 9px 12px;
+            font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--brand-sky); background: rgba(56, 189, 248, 0.06); border-radius: 8px;
+            font-family: var(--font-mono); transition: all 0.2s;
+        }
+        .btn-download-file:hover { background: rgba(56, 189, 248, 0.14); border-color: var(--brand-cyan); }
+
+        /* Locked Placeholder Elements */
+        .btn-locked-state {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 12px;
+            font-size: 0.76rem; font-weight: 700; border: 1px dashed rgba(255, 255, 255, 0.12);
+            color: var(--text-muted); background: rgba(255, 255, 255, 0.02); border-radius: 8px;
+            font-family: var(--font-mono); cursor: not-allowed; text-transform: uppercase;
         }
 
-        .btn-download-file:hover {
-            border-color: var(--brand-cyan);
-            color: var(--text-pure);
-            background: rgba(56, 189, 248, 0.1);
+        .ssh-info-pill {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 12px;
+            background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px;
+            color: var(--warning-amber); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
         }
 
-        /* Flag Submission Form */
-        .flag-form {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 8px;
-        }
-
+        /* FLAG INPUT BAR */
+        .flag-box { border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 14px; }
+        .input-group { display: flex; gap: 8px; }
         .flag-input {
-            flex: 1;
-            background: rgba(6, 11, 24, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #FFF;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            padding: 10px 14px;
-            outline: none;
-            border-radius: 8px;
-            transition: border-color 0.2s ease;
+            flex: 1; background: rgba(4, 9, 20, 0.9); border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFF; font-family: var(--font-mono); font-size: 0.82rem; padding: 10px 12px; border-radius: 8px; outline: none;
         }
-
-        .flag-input:focus {
-            border-color: var(--brand-cyan);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
-        }
-
-        .flag-input:disabled {
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.04);
-            color: var(--text-muted);
-            cursor: not-allowed;
-        }
-
+        .flag-input:focus { border-color: var(--brand-cyan); }
+        .flag-input:disabled { background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed; }
         .btn-submit-flag {
-            background: var(--brand-blue);
-            border: none;
-            color: #FFF;
-            font-family: var(--font-ui);
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 0 18px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            background: var(--brand-blue); border: none; color: #FFF; font-weight: 700; padding: 0 16px;
+            cursor: pointer; border-radius: 8px; font-family: var(--font-mono); font-size: 0.82rem; transition: background 0.2s;
         }
-
-        .btn-submit-flag:hover:not(:disabled) {
-            background: #1D4ED8;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-submit-flag:disabled {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            cursor: not-allowed;
-        }
-
-        .feedback-message {
-            font-size: 0.78rem;
-            font-weight: 600;
-            min-height: 16px;
-            font-family: var(--font-mono);
-        }
-
+        .btn-submit-flag:hover:not(:disabled) { background: #1D4ED8; }
+        .btn-submit-flag:disabled { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed; }
+        
+        .feedback-message { font-size: 0.74rem; font-family: var(--font-mono); min-height: 16px; margin-top: 6px; }
         .feedback-message.error { color: var(--danger-red); }
         .feedback-message.success { color: var(--success-green); }
 
-        /* Responsive */
+        /* ================= VICTORY CELEBRATION MODAL ================= */
+        #victory-modal {
+            position: fixed; inset: 0; z-index: 100000;
+            background: rgba(2, 5, 14, 0.90); backdrop-filter: blur(14px);
+            display: flex; justify-content: center; align-items: center; padding: 24px;
+        }
+        #victory-modal.hidden { display: none; }
+        .victory-card {
+            background: rgba(8, 17, 38, 0.97);
+            border: 2px solid var(--success-green);
+            box-shadow: 0 0 60px rgba(16, 185, 129, 0.35), inset 0 0 30px rgba(16, 185, 129, 0.12);
+            border-radius: 24px; padding: 45px; max-width: 580px; width: 100%; text-align: center;
+            animation: victoryScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        @keyframes victoryScale {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .victory-badge {
+            display: inline-block; padding: 6px 16px; border-radius: 100px;
+            background: rgba(16, 185, 129, 0.18); border: 1px solid var(--success-green);
+            color: var(--success-green); font-family: var(--font-mono); font-size: 0.8rem;
+            font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+        }
+        .victory-title {
+            font-family: var(--font-display); font-size: 2.2rem; color: #FFF;
+            line-height: 1.1; margin-bottom: 14px;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+        .victory-desc {
+            color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;
+        }
+        .victory-stats {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+            background: rgba(4, 9, 20, 0.7); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px; padding: 18px; margin-bottom: 30px;
+        }
+        .v-stat span { display: block; font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; }
+        .v-stat strong { display: block; font-size: 1.15rem; color: #FFF; margin-top: 4px; font-weight: 700; }
+        .btn-victory-dismiss {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #02050E; border: none; font-weight: 800; font-family: var(--font-mono);
+            font-size: 0.9rem; padding: 14px 28px; border-radius: 10px; cursor: pointer;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-victory-dismiss:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(16, 185, 129, 0.6); }
+
         @media (max-width: 900px) {
-            .hud-grid { grid-template-columns: 1fr; }
+            .hud-grid, .dossier-grid { grid-template-columns: 1fr; }
             .cyber-navbar { padding: 0 20px; }
-            .hero-scenario-card { padding: 20px; }
         }
     </style>
 </head>
@@ -766,256 +357,321 @@
     <div class="ambient-gradient-2"></div>
     <div class="grid-bg"></div>
 
-    <!-- =========================================================
-         SPLASH / INITIALIZATION SCREEN
-    ========================================================= -->
-    <div id="splash-screen">
-        <div class="splash-modal">
-            <img src="CipherNex Logo.png" alt="CipherNex" class="splash-logo" onerror="this.src='ChatGPT Image Sep 6, 2026, 04_53_52 PM.png'">
-            <div>
-                <span class="splash-badge">Next-Gen Cyber Security CTF</span>
+    <!-- VICTORY CELEBRATION MODAL -->
+    <div id="victory-modal" class="hidden">
+        <div class="victory-card">
+            <div class="victory-badge">MISSION ACCOMPLISHED // TIER 8 CLEARANCE</div>
+            <h2 class="victory-title">ORBITAL THREAT NEUTRALIZED</h2>
+            <p class="victory-desc">
+                Outstanding execution, Operator. All 8 telemetry sectors have been correlated, decrypted, and neutralized. The rogue C2 relay link has been dismantled and satellite core memory secured.
+            </p>
+            <div class="victory-stats">
+                <div class="v-stat">
+                    <span>SECTORS</span>
+                    <strong style="color:var(--brand-cyan);">8 / 8</strong>
+                </div>
+                <div class="v-stat">
+                    <span>CLEARANCE</span>
+                    <strong style="color:var(--brand-cyan);">TIER 8</strong>
+                </div>
+                <div class="v-stat">
+                    <span>STATUS</span>
+                    <strong style="color:var(--success-green);">SECURED</strong>
+                </div>
             </div>
-            <h1 class="splash-title">CIPHERNEX-301</h1>
-            <p class="splash-description">
-            </p>
-            <p class="splash-description">
-              
-            </p>
-            <button class="btn-splash-primary" id="splash-enter-btn">
-                <span>Enter Mission Arena</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
+            <button class="btn-victory-dismiss" onclick="closeVictoryModal()">CLOSE TELEMETRY</button>
         </div>
     </div>
 
-    <!-- =========================================================
-         TOP NAVIGATION
-    ========================================================= -->
+    <!-- AUTHENTICATION OVERLAY (Original Login/Signup Preserved) -->
+    <div id="auth-overlay">
+        <canvas id="splash-cyber-canvas"></canvas>
+        <div class="auth-box">
+            <img src="CipherNex Logo.png" alt="CipherNex" class="auth-logo" onerror="this.src='ChatGPT Image Sep 6, 2026, 04_53_52 PM.png'">
+            <h2 style="font-family: var(--font-display); color: #FFF; margin-bottom: 15px;">CIPHERNEX-301</h2>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">LOGIN</div>
+                <div class="auth-tab" id="tab-reg" onclick="switchAuthTab('reg')">REGISTER TEAM</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" class="auth-form" onsubmit="handleLogin(event)">
+                <div>
+                    <label>Operator Email</label>
+                    <input type="email" id="login-email" class="auth-input" required placeholder="analyst@team.local">
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" id="login-pass" class="auth-input" required placeholder="••••••••••••">
+                </div>
+                <button type="submit" class="btn-auth-submit">AUTHENTICATE UPLINK</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-reg" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div>
+                    <label>Team Call Sign</label>
+                    <input type="text" id="reg-team" class="auth-input" required placeholder="TEAM_DELTA_OPS">
+                </div>
+                <div>
+                    <label>Operator Email</label>
+                    <input type="email" id="reg-email" class="auth-input" required placeholder="lead@team.local">
+                </div>
+                <div>
+                    <label>Master Password</label>
+                    <input type="password" id="reg-pass" class="auth-input" required placeholder="••••••••••••">
+                </div>
+                <button type="submit" class="btn-auth-submit">REGISTER TEAM PROFILE</button>
+            </form>
+
+            <div id="auth-msg" class="auth-msg"></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
     <header class="cyber-navbar">
         <div class="nav-left">
             <img src="CipherNex Logo.png" alt="Logo" class="nav-logo" onerror="this.src='ChatGPT Image Sep 6, 2026, 04_53_52 PM.png'">
             <span class="nav-title">CIPHERNEX-301</span>
         </div>
         <div class="nav-right">
-            <div class="live-badge">
-                <div class="live-pulse"></div>
-                <span>UPLINK 437.450 MHz</span>
-            </div>
-            <a href="javascript:void(0)" id="reset-system-btn" class="btn-reset-session">Reset Progress</a>
+            <div id="user-display" class="team-pill">CONNECTING...</div>
+            <a href="/admin" id="admin-nav-link" class="btn-admin-link" style="display:none;">ADMIN</a>
+            <button onclick="handleLogout()" class="btn-logout">DISCONNECT</button>
         </div>
     </header>
 
-    <!-- =========================================================
-         MAIN HERO & ARENA CONTENT
-    ========================================================= -->
     <main class="cyber-container">
-
-        <!-- Hero Title & Scenario -->
+        <!-- HERO & SATELLITE SITREP -->
         <section class="hero-section">
             <div class="hero-pill">Space-Asset Cyber Security Arena</div>
             <h1 class="hero-title">Real-Time Defense for <span>Orbital Threats</span></h1>
-            
-            <div class="hero-scenario-card">
-                <div class="scenario-header">
-                    <span class="scenario-tag">Mission Scenario Report</span>
+
+            <!-- Detailed Aerospace Situation Report -->
+            <div class="scenario-dossier">
+                <div class="dossier-header">
+                    <span>// INCIDENT SITREP: NX-301-ANOMALY</span>
+                    <span>CLASSIFICATION: TOP-SECRET // DEFENSE EXERCISE</span>
                 </div>
-                <p class="scenario-body">
-                    A decommissioned experimental satellite (<strong>CipherNex-301</strong>) unexpectedly reactivated, broadcasting fragmented telemetry to a private ground station[cite: 2, 3]. Intelligence indicates it functions as a covert nation-state <strong>Command &amp; Control (C2) relay</strong>[cite: 3]. Participants act as space-security analysts recovering mission data before the next orbital pass[cite: 3].
-                </p>
+                <div class="dossier-grid">
+                    <div class="dossier-body">
+                        <p>
+                            In late 2024, the experimental micro-satellite <strong>CipherNex-301 (NORAD ID: 49281)</strong> completed its scheduled research mission and was placed in passive disposal orbit. However, automated ground tracking arrays recently flagged unprompted signal activation broadcasting across secondary emergency telemetry bands.
+                        </p>
+                        <p>
+                            Forensic intelligence reveals that an adversary proxy known as <strong>APOGEE-SHADOW</strong> successfully compromised the orbital attitude and control firmware. The threat actor is exploiting the satellite bus as a covert <strong>Command &amp; Control (C2) orbital relay</strong> to route unauthorized payload streams and bypass terrestrial firewall perimeters.
+                        </p>
+                        <p>
+                            Your cyber task force must correlate intercepted radio transmissions, analyze volatile workstation memory dumps, reverse proprietary orbital cipher algorithms, neutralize backdoored ground infrastructure, and reassemble the master telemetry archive to re-establish authenticated ground authority.
+                        </p>
+                    </div>
+                    <div class="dossier-meta">
+                        <div class="meta-row"><span class="meta-key">TARGET ASSET</span><span class="meta-val">CipherNex-301</span></div>
+                        <div class="meta-row"><span class="meta-key">NORAD CATALOG</span><span class="meta-val">49281</span></div>
+                        <div class="meta-row"><span class="meta-key">ORBIT CLASS</span><span class="meta-val">LEO (420 km)</span></div>
+                        <div class="meta-row"><span class="meta-key">INCLINATION</span><span class="meta-val">51.64°</span></div>
+                        <div class="meta-row"><span class="meta-key">PRIMARY BAND</span><span class="meta-val">437.450 MHz</span></div>
+                        <div class="meta-row"><span class="meta-key">MISSION STATUS</span><span class="meta-val" style="color:var(--danger-red);">COMPROMISED</span></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Progress Metrics & Operational Rules -->
+        <!-- HUD METRICS -->
         <section class="hud-grid">
             <div class="metric-card">
                 <div class="metric-header">
                     <span>Mission Progression</span>
-                    <span id="stat-progress-count" style="color:var(--brand-cyan);">1 / 8 Completed</span>
+                    <span id="stat-progress-count" style="color:var(--brand-cyan);">1 / 8 Stages</span>
                 </div>
                 <div class="progress-track">
-                    <div class="progress-bar" id="main-progress-bar" style="width: 12.5%;"></div>
+                    <div class="progress-bar" id="main-progress-bar"></div>
                 </div>
-                <div class="metric-footer">
-                    <span>Security Clearance: <strong id="clearance-badge" style="color:var(--brand-cyan)">Tier 1</strong></span>
-                    <span>Status: <strong id="mission-status-label" style="color:var(--success-green)">Active Uplink</strong></span>
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-secondary); font-family:var(--font-mono);">
+                    <span>Clearance: <strong id="clearance-badge" style="color:var(--brand-cyan)">Tier 1</strong></span>
+                    <span>Status: <strong style="color:var(--success-green)">Active Uplink</strong></span>
                 </div>
             </div>
-
             <div class="metric-card">
-                <div class="metric-header">Engagement Directives</div>
-                <div class="rules-items">
-                    <div class="rule-pill">
-                        <div class="rule-dot"></div>
-                        <div><strong>Flag Format:</strong> Exact match <code>CIPHERNEX{snake_case_string}</code>[cite: 2, 3].</div>
-                    </div>
-                    <div class="rule-pill">
-                        <div class="rule-dot"></div>
-                        <div><strong>Sequential Unlock:</strong> Verifying a flag unlocks the subsequent stage[cite: 2, 3].</div>
-                    </div>
-                    <div class="rule-pill">
-                        <div class="rule-dot"></div>
-                        <div><strong>Data Retention:</strong> Keep extracted cryptographic parameters for later use[cite: 2, 3].</div>
-                    </div>
+                <div class="metric-header">Rules of Engagement</div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; font-family:var(--font-mono);">
+                    • Flag Standard: <code>CIPHERNEX{snake_case_string}</code><br>
+                    • Sequential Progression: Each verified sector unlocks downstream artifacts.<br>
+                    • Server Validation: Signatures validated in constant time on VPS engine.
                 </div>
             </div>
         </section>
 
-        <!-- Section Header -->
-        <div class="section-header">
-            <h2 class="section-title">Challenge Stages</h2>
-        </div>
-
-        <!-- 8 Stages Grid -->
-        <section class="stages-grid" id="stages-container-root">
-            <!-- Dynamically populated via JavaScript -->
-        </section>
-
+        <!-- STAGES GRID -->
+        <section class="stages-grid" id="stages-container-root"></section>
     </main>
 
-    <!-- =========================================================
-         SYSTEM JAVASCRIPT
-    ========================================================= -->
     <script>
+        // Automatic local testing (port 5000) vs production VPS (/api) detection
+        const API_URL = (window.location.port === "5500" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+            ? "http://127.0.0.1:5000/api"
+            : "/api";
+
         const STAGES = [
-            {
-                id: 1,
-                code: "STG-01",
-                name: "Skywatch",
-                domain: "OSINT / Recon",
-                difficulty: "Easy",
-                desc: "Ground control detected anomalous radio bursts from deactivated CipherNex-301. Track the partial NORAD ID and recover the initial radio downlink flag[cite: 1, 3].",
-                flag: "CIPHERNEX{ghost_signal_recovered}",
-                file: "Stage 1/Web/Stage-1/files/CNX-OPS-301-ST01_MissionBulletin.pdf",
-                fileName: "MissionBulletin.pdf",
-                webUrl: "./Stage 1/Web/Stage-1/index.html"
-            },
-            {
-                id: 2,
-                code: "STG-02",
-                name: "Broken Beacon",
-                domain: "Networking",
-                difficulty: "Easy",
-                desc: "A fragmented UDP burst on port 4000 was intercepted on the recovered frequency. Reconstruct the stream and extract the telemetry payload[cite: 3].",
-                flag: "CIPHERNEX{fragmented_udp_burst_recovered}",
-                file: "Stage 2/Web/Stage-2/files/telemetry_burst.pcap",
-                fileName: "telemetry_burst.pcap",
-                webUrl: "./Stage 2/Web/Stage-2/index.html"
-            },
-            {
-                id: 3,
-                code: "STG-03",
-                name: "Memory of Ground Station",
-                domain: "Digital Forensics",
-                difficulty: "Moderate",
-                desc: "Inspect the memory dump of the operator workstation using Volatility 3 to extract volatile telemetry daemon artifacts and passphrases[cite: 3].",
-                flag: "CIPHERNEX{volatile_memory_forensics_extracted}",
-                file: "Stage 3/Web/Stage-3/files/ground_station.raw",
-                fileName: "ground_station.raw",
-                webUrl: "./Stage 3/Web/Stage-3/index.html"
-            },
-            {
-                id: 4,
-                code: "STG-04",
-                name: "Orbital Cipher",
-                domain: "Cryptography",
-                difficulty: "Moderate",
-                desc: "An encrypted telemetry manifest derives its AES key using orbital inclination and epoch timestamps as KDF entropy[cite: 3].",
-                flag: "CIPHERNEX{orbital_kdf_aes_decrypted}",
-                file: "Files/manifest.enc",
-                fileName: "manifest.enc",
-                webUrl: null
-            },
-            {
-                id: 5,
-                code: "STG-05",
-                name: "Hidden in the Noise",
-                domain: "Steganography",
-                difficulty: "Moderate",
-                desc: "Downlink carrier audio contains encrypted high-frequency modulation. Extract the hidden payload using the passphrase recovered in Stage 3[cite: 3].",
-                flag: "CIPHERNEX{stego_noise_carrier_extracted}",
-                file: "Files/downlink_carrier.wav",
-                fileName: "downlink_carrier.wav",
-                webUrl: null
-            },
-            {
-                id: 6,
-                code: "STG-06",
-                name: "Service Ghost",
-                domain: "Linux Security",
-                difficulty: "Moderate-Hard",
-                desc: "Gain low-privilege SSH access (Port 2222). Locate a write-accessible systemd timer unit executing as root to escalate privileges[cite: 3].",
-                flag: "CIPHERNEX{systemd_timer_privilege_escalated}",
-                file: "#",
-                fileName: "SSH: Port 2222",
-                webUrl: null
-            },
-            {
-                id: 7,
-                code: "STG-07",
-                name: "Command Chain",
-                domain: "Network Crypto",
-                difficulty: "Hard",
-                desc: "Correlate segmented C2 packet sequences across multiple capture files and decrypt the composite command instruction block[cite: 3].",
-                flag: "CIPHERNEX{c2_reordered_protocol_unlocked}",
-                file: "Files/c2_stream_01.pcap",
-                fileName: "c2_stream_01.pcap",
-                webUrl: null
-            },
-            {
-                id: 8,
-                code: "STG-08",
-                name: "Final Downlink",
-                domain: "Capstone / Hybrid",
-                difficulty: "Hard",
-                desc: "Synthesize extracted parameters across all 7 stages into the automated decryption pipeline to unlock the root mission core archive[cite: 3].",
-                flag: "CIPHERNEX{ciphernex_master_telemetry_complete}",
-                file: "Files/core_mission.enc",
-                fileName: "core_mission.enc",
-                webUrl: null
-            }
+            { id: 1, code: "STG-01", name: "Skywatch", domain: "OSINT / Recon", diff: "Easy", points: 100, telemetry: "NORAD EPHEMERIS // 437.450 MHz", desc: "Track partial satellite registration data, correlate orbital bulletins, and recover the radio downlink authorization flag.", file: "Stage 1/Web/Stage-1/files/CNX-OPS-301-ST01_MissionBulletin.pdf", fileName: "MissionBulletin.pdf", webUrl: "/stage1/" },
+            { id: 2, code: "STG-02", name: "Broken Beacon", domain: "Networking", diff: "Easy", points: 150, telemetry: "UDP INGRESS // PORT 4000", desc: "Reassemble intercepted network captures containing fragmented sensor beacon frames transmitted during orbital transit.", file: "Stage 2/Web/Stage-2/files/telemetry_burst.pcap", fileName: "telemetry_burst.pcap", webUrl: "/stage2/" },
+            { id: 3, code: "STG-03", name: "Memory of Ground Station", domain: "Forensics", diff: "Moderate", points: 200, telemetry: "VOLATILE DUMP // GS-04 TERMINAL", desc: "Analyze an acquired physical memory snapshot of Ground Station 04 with Volatility 3 to extract active daemon parameters.", file: "Stage 3/Web/Stage-3/files/ground_station.raw", fileName: "ground_station.raw", webUrl: "/stage3/" },
+            { id: 4, code: "STG-04", name: "Orbital Cipher", domain: "Cryptography", diff: "Moderate", points: 250, telemetry: "KDF DERIVATION // AES-256-CBC", desc: "Synthesize orbital inclination values and Stage 3 seed material to break the key derivation function guarding flight data.", file: "Stage 4/Web/Stage-4/files/manifest.enc", fileName: "manifest.enc", webUrl: "/stage4/" },
+            { id: 5, code: "STG-05", name: "Hidden in the Noise", domain: "Steganography", diff: "Moderate", points: 250, telemetry: "AUDIO CARRIER // SUB-BAND AM", desc: "Extract modulated transmission data hidden within downlink carrier audio using the recovery password found in Stage 3.", file: "Stage 5/Web/Stage-5/files/downlink_carrier.wav", fileName: "downlink_carrier.wav", webUrl: "/stage5/" },
+            { id: 6, code: "STG-06", name: "Service Ghost", domain: "Linux Security", diff: "Mod-Hard", points: 300, telemetry: "SSH TERMINAL // PORT 2222", desc: "Gain low-privilege shell access on the satellite control node and exploit an unprivileged systemd timer for root takeover.", file: "#", fileName: "SSH: Port 2222", webUrl: null },
+            { id: 7, code: "STG-07", name: "Command Chain", domain: "Network Crypto", diff: "Hard", points: 350, telemetry: "C2 MULTI-STREAM // TCP 9043", desc: "Merge dual intercepted downlink captures, sort fragmented sequence indices, and execute multi-byte XOR session decryption.", file: "Stage 7/Web/Stage-7/files/c2_stream_01.pcap", fileName: "c2_stream_01.pcap", webUrl: "/stage7/" },
+            { id: 8, code: "STG-08", name: "Final Downlink", domain: "Capstone", diff: "Hard", points: 500, telemetry: "PBKDF2-HMAC // ROOT TELEMETRY", desc: "Synthesize all recovered stage parameters into the master automated decryption pipeline to unlock the root mission archive.", file: "Stage 8/Web/Stage-8/files/core_mission.enc", fileName: "core_mission.enc", webUrl: "/stage8/" }
+
         ];
 
-        // State Management
-        let currentUnlockedStage = parseInt(localStorage.getItem('ciphernex_unlocked_stage')) || 1;
+        let currentUser = JSON.parse(localStorage.getItem('ciphernex_user') || 'null');
 
-        // Splash screen toggle (Shown only on first visit)
-        const splash = document.getElementById('splash-screen');
-        
-        if (localStorage.getItem('ciphernex_splash_seen')) {
-            splash.classList.add('hidden');
+        if (currentUser) {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            setupSessionUI();
         }
 
-        document.getElementById('splash-enter-btn').addEventListener('click', () => {
-            splash.classList.add('hidden');
-            localStorage.setItem('ciphernex_splash_seen', 'true');
-        });
+        function switchAuthTab(tab) {
+            const isLogin = tab === 'login';
+            document.getElementById('tab-login').className = isLogin ? 'auth-tab active' : 'auth-tab';
+            document.getElementById('tab-reg').className = isLogin ? 'auth-tab' : 'auth-tab active';
+            document.getElementById('form-login').style.display = isLogin ? 'flex' : 'none';
+            document.getElementById('form-reg').style.display = isLogin ? 'none' : 'flex';
+            document.getElementById('auth-msg').textContent = '';
+        }
 
-        // Render Cards
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-pass').value;
+            const msg = document.getElementById('auth-msg');
+
+            try {
+                const res = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    currentUser = data.user;
+                    localStorage.setItem('ciphernex_user', JSON.stringify(currentUser));
+                    document.getElementById('auth-overlay').classList.add('hidden');
+                    setupSessionUI();
+                } else {
+                    msg.style.color = 'var(--danger-red)';
+                    msg.textContent = data.error || 'Authentication failed.';
+                }
+            } catch (err) {
+                msg.style.color = 'var(--danger-red)';
+                msg.textContent = 'Backend connection offline.';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const team_name = document.getElementById('reg-team').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-pass').value;
+            const msg = document.getElementById('auth-msg');
+
+            try {
+                const res = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ team_name, email, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    msg.style.color = 'var(--success-green)';
+                    msg.textContent = data.message;
+                    setTimeout(() => switchAuthTab('login'), 1200);
+                } else {
+                    msg.style.color = 'var(--danger-red)';
+                    msg.textContent = data.error || 'Registration failed.';
+                }
+            } catch (err) {
+                msg.style.color = 'var(--danger-red)';
+                msg.textContent = 'Backend connection offline.';
+            }
+        }
+
+        function setupSessionUI() {
+            document.getElementById('user-display').textContent = `TEAM: ${currentUser.team_name}`;
+            if (currentUser.is_admin) {
+                document.getElementById('admin-nav-link').style.display = 'inline-block';
+            }
+            renderStages();
+
+            if (currentUser.solved_stages && currentUser.solved_stages.length === 8 && !sessionStorage.getItem('victory_modal_shown')) {
+                showVictoryModal();
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('ciphernex_user');
+            sessionStorage.removeItem('victory_modal_shown');
+            location.reload();
+        }
+
+        function showVictoryModal() {
+            document.getElementById('victory-modal').classList.remove('hidden');
+            sessionStorage.setItem('victory_modal_shown', 'true');
+        }
+
+        function closeVictoryModal() {
+            document.getElementById('victory-modal').classList.add('hidden');
+        }
+
         function renderStages() {
             const container = document.getElementById('stages-container-root');
             container.innerHTML = '';
+            const unlocked = currentUser ? currentUser.unlocked_stage : 1;
+            const solved = currentUser ? (currentUser.solved_stages || []) : [];
 
             STAGES.forEach((stage) => {
-                const isCleared = stage.id < currentUnlockedStage;
-                const isActive = stage.id === currentUnlockedStage;
-                const isLocked = stage.id > currentUnlockedStage;
+                const isCleared = solved.includes(stage.id);
+                const isActive = stage.id === unlocked;
+                const isLocked = stage.id > unlocked;
 
-                let cardClass = "stage-box";
-                let badgeClass = "box-badge";
-                let badgeLabel = "Locked";
+                let cardClass = "stage-box" + (isCleared ? " cleared" : (isActive ? " active" : " locked"));
+                let badgeClass = "box-badge " + (isCleared ? "badge-cleared" : (isActive ? "badge-active" : "badge-locked"));
+                let badgeLabel = isCleared ? "✓ CLEARED" : (isActive ? "● ACTIVE ENGAGEMENT" : "LOCKED");
 
-                if (isCleared) {
-                    cardClass += " cleared";
-                    badgeClass += " badge-cleared";
-                    badgeLabel = "✓ Cleared";
-                } else if (isActive) {
-                    cardClass += " active";
-                    badgeClass += " badge-active";
-                    badgeLabel = "● Active";
+                // File and Console Actions logic
+                let actionShelfHtml = "";
+
+                if (isLocked) {
+                    // STRICT GATE: No file downloads or console links accessible when locked
+                    actionShelfHtml = `
+                        <div class="btn-locked-state">
+                            🔒 PAYLOAD ENCRYPTED [CLEAR STG-0${stage.id - 1} FIRST]
+                        </div>
+                    `;
                 } else {
-                    cardClass += " locked";
-                    badgeClass += " badge-locked";
-                    badgeLabel = "Locked";
+                    // STAGE UNLOCKED OR CLEARED: Provide full operational tools
+                    if (stage.webUrl) {
+                        actionShelfHtml += `
+                        <a href="${stage.webUrl}" class="btn-launch-console">
+                            ACCESS MISSION CONSOLE
+                        </a>
+                        `;
+                    } else if (stage.id === 6) {
+                        actionShelfHtml += `
+                            <div class="ssh-info-pill">
+                                <span>SSH:</span> <code>ground-user@${window.location.hostname} -p 2222</code>
+                            </div>
+                        `;
+                    }
+
+                    if (stage.file !== '#') {
+                        actionShelfHtml += `
+                            <a href="${stage.file}" class="btn-download-file" download>
+                                ⬇ DOWNLOAD ARTIFACT (${stage.fileName})
+                            </a>
+                        `;
+                    }
                 }
 
                 const el = document.createElement('div');
@@ -1023,117 +679,139 @@
                 el.innerHTML = `
                     <div>
                         <div class="box-top">
-                            <span class="box-code">${stage.code}</span>
+                            <span class="box-code">${stage.code} // SECTOR ${stage.id}</span>
                             <span class="${badgeClass}">${badgeLabel}</span>
                         </div>
-                        <h3 class="box-title">${stage.name}</h3>
-                        <div class="box-meta">
-                            <div>Domain: <span>${stage.domain}</span></div>
-                            <div>Diff: <span>${stage.difficulty}</span></div>
+                        <div class="box-meta-strip">
+                            <span>${stage.domain}</span>
+                            <span>${stage.diff}</span>
+                            <span>${stage.points} PTS</span>
                         </div>
+                        <h3 class="box-title">${stage.name}</h3>
                         <p class="box-desc">${stage.desc}</p>
                         
-                        <div class="box-actions">
-                            ${stage.webUrl && !isLocked ? `
-                                <a href="${stage.webUrl}" class="btn-launch-console" target="_self">
-                                    <span>Access Mission Console</span>
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </a>
-                            ` : ''}
+                        <div class="box-telemetry-meta">
+                            VECTOR: <strong>${stage.telemetry}</strong>
+                        </div>
 
-                            ${stage.file !== '#' ? `
-                                <a href="${stage.file}" class="btn-download-file" target="_blank" download>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                    ${stage.fileName}
-                                </a>
-                            ` : `
-                                <span class="btn-download-file" style="cursor:default; opacity:0.6;">
-                                    ${stage.fileName}
-                                </span>
-                            `}
+                        <div class="box-action-shelf">
+                            ${actionShelfHtml}
                         </div>
                     </div>
 
-                    <div class="flag-form">
+                    <div class="flag-box">
                         <form onsubmit="handleFlagSubmit(event, ${stage.id})">
                             <div class="input-group">
-                                <input 
-                                    type="text" 
-                                    class="flag-input" 
-                                    id="flag-input-${stage.id}" 
-                                    placeholder="${isCleared ? 'FLAG RECOVERED' : (isActive ? 'CIPHERNEX{...}' : 'STAGE LOCKED')}" 
-                                    ${!isActive ? 'disabled' : ''}
-                                    autocomplete="off"
-                                    spellcheck="false"
-                                >
-                                <button type="submit" class="btn-submit-flag" ${!isActive ? 'disabled' : ''}>
-                                    Submit
-                                </button>
+                                <input type="text" class="flag-input" id="flag-input-${stage.id}" 
+                                    placeholder="${isCleared ? '✓ SIGNATURE VERIFIED' : (isActive ? 'CIPHERNEX{...}' : 'SECTOR LOCKED')}" 
+                                    ${!isActive ? 'disabled' : ''} autocomplete="off" spellcheck="false">
+                                <button type="submit" class="btn-submit-flag" ${!isActive ? 'disabled' : ''}>Submit</button>
                             </div>
                             <div class="feedback-message" id="feedback-msg-${stage.id}"></div>
                         </form>
                     </div>
                 `;
-
                 container.appendChild(el);
             });
 
-            updateHUD();
+            // Update Progress HUD
+            const count = solved.length;
+            const pct = Math.min(100, Math.round((count / STAGES.length) * 100));
+            document.getElementById('main-progress-bar').style.width = (count === 0 ? 12.5 : pct) + '%';
+            document.getElementById('stat-progress-count').textContent = `${Math.min(unlocked, 8)} / 8 Stages`;
+            document.getElementById('clearance-badge').textContent = `Tier ${Math.min(unlocked, 8)}`;
         }
 
-        // Update Header HUD
-        function updateHUD() {
-            const clearedCount = currentUnlockedStage - 1;
-            const percent = Math.min(100, Math.round((clearedCount / STAGES.length) * 100));
-            
-            document.getElementById('main-progress-bar').style.width = (clearedCount === 0 ? 12.5 : percent) + '%';
-            document.getElementById('stat-progress-count').textContent = `${Math.min(currentUnlockedStage, 8)} / 8 Stages`;
-            document.getElementById('clearance-badge').textContent = `Tier ${Math.min(currentUnlockedStage, 8)}`;
-            
-            if (currentUnlockedStage > 8) {
-                document.getElementById('mission-status-label').textContent = "All Stages Cleared";
-                document.getElementById('mission-status-label').style.color = "var(--brand-cyan)";
-            }
-        }
-
-        // Handle Flag Validation
-        window.handleFlagSubmit = function(event, stageId) {
-            event.preventDefault();
+        async function handleFlagSubmit(e, stageId) {
+            e.preventDefault();
             const inputField = document.getElementById(`flag-input-${stageId}`);
             const statusField = document.getElementById(`feedback-msg-${stageId}`);
             const submittedValue = inputField.value.trim();
 
-            const stageObj = STAGES.find(s => s.id === stageId);
+            statusField.textContent = "[*] Verifying telemetry signature...";
+            statusField.className = "feedback-message";
 
-            if (submittedValue === stageObj.flag) {
-                statusField.textContent = "[+] Flag Verified: Stage Cleared";
-                statusField.className = "feedback-message success";
+            try {
+                const res = await fetch(`${API_URL}/submit-flag`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        team_name: currentUser.team_name,
+                        user_id: currentUser.id,
+                        stage_id: stageId,
+                        flag: submittedValue
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    statusField.textContent = data.message;
+                    statusField.className = "feedback-message success";
+                    currentUser.unlocked_stage = data.next_stage;
+                    if (!currentUser.solved_stages.includes(stageId)) {
+                        currentUser.solved_stages.push(stageId);
+                    }
+                    localStorage.setItem('ciphernex_user', JSON.stringify(currentUser));
+                    setTimeout(renderStages, 800);
 
-                // Advance progression and unlock next stage in-place
-                setTimeout(() => {
-                    currentUnlockedStage = stageId + 1;
-                    localStorage.setItem('ciphernex_unlocked_stage', currentUnlockedStage);
-                    renderStages();
-                }, 700);
-            } else {
-                statusField.textContent = "[-] Invalid Telemetry Signature";
+                    if (stageId === 8 || currentUser.solved_stages.length === 8) {
+                        setTimeout(showVictoryModal, 1200);
+                    }
+                } else {
+                    statusField.textContent = data.message;
+                    statusField.className = "feedback-message error";
+                }
+            } catch (err) {
+                statusField.textContent = "[-] Validation engine unreachable.";
                 statusField.className = "feedback-message error";
-                inputField.focus();
             }
-        };
+        }
 
-// Reset Action
-        document.getElementById('reset-system-btn').addEventListener('click', () => {
-            if (confirm("Reset mission progression back to Stage 1?")) {
-                localStorage.removeItem('ciphernex_unlocked_stage');
-                localStorage.removeItem('ciphernex_splash_seen');
-                currentUnlockedStage = 1;
-                renderStages();
+        // Slow, Soft-Gliding Cyber Matrix Background Animation
+        (function initMatrix() {
+            const canvas = document.getElementById('splash-cyber-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resize(); window.addEventListener('resize', resize);
+            
+            const tokens = ['0x1A', '0x4F', 'CIPHER', 'NX-301', 'AES-256', '437.45MHz', 'DOWNLINK', 'C2', 'FLAG', 'ORBIT', 'TELEMETRY'];
+            let cols = Math.floor(canvas.width / 44);
+            let drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -60));
+            
+            let lastTimestamp = 0;
+            const frameDelay = 55; // Throttle down frame rate for slow, subtle drift
+
+            function draw(timestamp) {
+                requestAnimationFrame(draw);
+                if (timestamp - lastTimestamp < frameDelay) return;
+                lastTimestamp = timestamp;
+
+                ctx.fillStyle = 'rgba(2, 5, 14, 0.22)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.font = '12px "Space Mono", monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = tokens[Math.floor(Math.random() * tokens.length)];
+                    const rand = Math.random();
+
+                    if (rand > 0.88) {
+                        ctx.fillStyle = '#BAE6FD';
+                    } else if (rand > 0.40) {
+                        ctx.fillStyle = '#38BDF8';
+                    } else {
+                        ctx.fillStyle = '#0284C7';
+                    }
+
+                    ctx.fillText(text, i * 46, drops[i] * 22);
+
+                    if (drops[i] * 22 > canvas.height && Math.random() > 0.985) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
             }
-        });
-
-        // Initialize
-        renderStages();
+            requestAnimationFrame(draw);
+        })();
     </script>
 </body>
 </html>
