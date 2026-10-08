@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherNex-301 // Satellite Operations Command</title>
+    <link rel="icon" type="image/png" href="CipherNex Logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: "HackDaddy";
+            src: url("Fonts/hackdaddy/Hackdaddy.otf") format("opentype"),
+                 url("Stage 1/Web/Stage-1/Fonts/hackdaddy/Hackdaddy.otf") format("opentype");
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+
+        :root {
+            --bg-body: #030712;
+            --bg-panel: rgba(8, 16, 36, 0.88);
+            --bg-panel-hover: rgba(14, 25, 52, 0.95);
+            --border-glow: rgba(56, 189, 248, 0.28);
+            --brand-cyan: #38BDF8;
+            --brand-blue: #2563EB;
+            --brand-sky: #7DD3FC;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
+            --warning-amber: #F59E0B;
+            --text-pure: #FFFFFF;
+            --text-muted: #64748B;
+            --text-secondary: #94A3B8;
+            --font-display: "HackDaddy", 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-ui: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-pure);
+            font-family: var(--font-ui);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Ambient Radar & Starfield */
+        .ambient-glow {
+            position: fixed; inset: 0; pointer-events: none; z-index: -2;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.12), transparent 45%),
+                radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+                linear-gradient(180deg, #02050E, #04091A);
+        }
+        .grid-lines {
+            position: fixed; inset: 0; pointer-events: none; z-index: -1;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Scanline Overlay */
+        body::after {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+            background: linear-gradient(rgba(255, 255, 255, 0.015) 50%, transparent 50%);
+            background-size: 100% 4px; opacity: 0.3;
+        }
+
+        /* ================= AUTHENTICATION OVERLAY ================= */
+        #admin-auth-overlay {
+            position: fixed; inset: 0; z-index: 100000;
+            background: rgba(2, 5, 14, 0.94); backdrop-filter: blur(20px);
+            display: flex; justify-content: center; align-items: center; padding: 24px;
+        }
+        #admin-auth-overlay.hidden { display: none; }
+        .auth-card {
+            background: rgba(8, 17, 38, 0.98);
+            border: 2px solid var(--brand-cyan);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.25), inset 0 0 25px rgba(37, 99, 235, 0.15);
+            border-radius: 20px; padding: 40px; max-width: 440px; width: 100%; text-align: center;
+        }
+        .auth-logo { width: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 15px var(--brand-blue)); }
+        .auth-title { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 6px; letter-spacing: 1px; }
+        .auth-subtitle { font-family: var(--font-mono); font-size: 0.76rem; color: var(--brand-cyan); margin-bottom: 25px; letter-spacing: 2px; }
+        
+        .auth-form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+        .auth-label { font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-secondary); text-transform: uppercase; }
+        .auth-input {
+            background: rgba(4, 9, 20, 0.85); border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFF; padding: 12px 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.9rem;
+            outline: none; transition: border-color 0.2s;
+        }
+        .auth-input:focus { border-color: var(--brand-cyan); box-shadow: 0 0 15px rgba(56, 189, 248, 0.25); }
+        .btn-auth-submit {
+            background: linear-gradient(135deg, #2563EB, #1D4ED8); border: none; color: #FFF;
+            padding: 13px; font-family: var(--font-mono); font-weight: 700; font-size: 0.88rem;
+            border-radius: 8px; cursor: pointer; margin-top: 10px; box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+        }
+        .btn-auth-submit:hover { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+        .auth-err { font-family: var(--font-mono); font-size: 0.78rem; color: var(--danger-red); min-height: 18px; margin-top: 8px; text-align: center; }
+
+        /* ================= MAIN DASHBOARD ================= */
+        .dashboard-container { max-width: 1440px; margin: 0 auto; padding: 25px 35px 80px; }
+
+        /* HEADER HUD */
+        .ops-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-glow); padding-bottom: 20px; margin-bottom: 25px;
+        }
+        .brand-block { display: flex; align-items: center; gap: 15px; }
+        .brand-block img { width: 44px; height: 44px; }
+        .brand-text h1 { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 1px; }
+        .brand-text p { font-family: var(--font-mono); font-size: 0.75rem; color: var(--brand-cyan); letter-spacing: 2px; }
+
+        .header-controls { display: flex; gap: 12px; align-items: center; }
+        .btn-hud {
+            background: rgba(37, 99, 235, 0.15); border: 1px solid var(--brand-cyan);
+            color: var(--brand-cyan); padding: 8px 16px; border-radius: 8px; font-family: var(--font-mono);
+            font-size: 0.78rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-hud:hover { background: var(--brand-cyan); color: #02050E; }
+        .btn-hud-danger {
+            border-color: var(--danger-red); color: var(--danger-red); background: rgba(239, 68, 68, 0.1);
+        }
+        .btn-hud-danger:hover { background: var(--danger-red); color: #FFF; }
+
+        /* SATELLITE TELEMETRY WIDGETS */
+        .telemetry-strip {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 25px;
+        }
+        .telem-box {
+            background: var(--bg-panel); border: 1px solid var(--border-glow);
+            border-radius: 12px; padding: 16px 20px; position: relative; overflow: hidden;
+        }
+        .telem-box::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--brand-cyan), transparent);
+        }
+        .telem-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .telem-val { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: #FFF; margin-top: 4px; }
+        .telem-status { font-family: var(--font-mono); font-size: 0.7rem; color: var(--success-green); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+        .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success-green); box-shadow: 0 0 8px var(--success-green); }
+
+        /* WORKSPACE GRID */
+        .workspace-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 24px; }
+
+        .panel-box {
+            background: var(--bg-panel); border: 1px solid var(--border-glow);
+            border-radius: 16px; padding: 25px; position: relative;
+        }
+        .panel-title {
+            font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--brand-cyan);
+            margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px;
+        }
+
+        /* TEAMS TABLE */
+        .teams-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+        .teams-table th {
+            text-align: left; padding: 12px 14px; font-family: var(--font-mono); font-size: 0.72rem;
+            color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .teams-table td { padding: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); vertical-align: middle; }
+        
+        .team-name-cell { font-family: var(--font-mono); font-weight: 700; color: #FFF; }
+        .team-contact { font-size: 0.74rem; color: var(--text-secondary); margin-top: 2px; }
+        
+        .stage-pill {
+            display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center;
+            border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; margin-right: 3px;
+        }
+        .stage-cleared { background: var(--success-green); color: #02050E; }
+        .stage-pending { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+
+        /* ROW RESET ACTION CONTROLS */
+        .action-cell { display: flex; gap: 6px; align-items: center; }
+        .btn-row-reset {
+            background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #F87171; padding: 4px 10px; border-radius: 6px; font-family: var(--font-mono);
+            font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-row-reset:hover { background: var(--danger-red); color: #FFF; }
+
+        .select-stage-reset {
+            background: rgba(4, 9, 20, 0.9); border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--brand-sky); font-family: var(--font-mono); font-size: 0.72rem; padding: 3px 6px;
+            border-radius: 6px; outline: none;
+        }
+
+        /* AUDIT TERMINAL FEED */
+        .terminal-feed {
+            background: #02050E; border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px; padding: 14px; font-family: var(--font-mono); font-size: 0.76rem;
+            max-height: 520px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;
+        }
+        .log-entry {
+            padding: 8px 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--brand-blue);
+        }
+        .log-entry.SUCCESS { border-left-color: var(--success-green); }
+        .log-entry.INCORRECT { border-left-color: var(--danger-red); }
+        .log-meta { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.7rem; margin-bottom: 2px; }
+
+        @media (max-width: 1024px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+            .telemetry-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+    <div class="grid-lines"></div>
+
+    <!-- ADMIN LOGIN GATE OVERLAY -->
+    <div id="admin-auth-overlay">
+        <div class="auth-card">
+            <img src="CipherNex Logo.png" alt="CipherNex" class="auth-logo" onerror="this.src='ChatGPT Image Sep 6, 2026, 04_53_52 PM.png'">
+            <h2 class="auth-title">FLIGHT DIRECTOR</h2>
+            <div class="auth-subtitle">SATELLITE COMMAND ACCESS</div>
+
+            <form class="auth-form" onsubmit="handleAdminLogin(event)">
+                <div>
+                    <label class="auth-label">Operator Call Sign</label>
+                    <input type="text" id="admin-user" class="auth-input" required placeholder="admin">
+                </div>
+                <div>
+                    <label class="auth-label">Command Cipher Key</label>
+                    <input type="password" id="admin-pass" class="auth-input" required placeholder="••••••••••••">
+                </div>
+                <button type="submit" class="btn-auth-submit">AUTHENTICATE CLEARANCE</button>
+            </form>
+            <div id="auth-err-msg" class="auth-err"></div>
+        </div>
+    </div>
+
+    <!-- MAIN OPERATIONS DASHBOARD -->
+    <main class="dashboard-container">
+        <!-- TOP HUD BAR -->
+        <header class="ops-header">
+            <div class="brand-block">
+                <img src="CipherNex Logo.png" alt="Logo" onerror="this.src='ChatGPT Image Sep 6, 2026, 04_53_52 PM.png'">
+                <div class="brand-text">
+                    <h1>CIPHERNEX-301 // MISSION CONTROL</h1>
+                    <p>ORBITAL TELEMETRY OVERSIGHT &amp; ARENA SUPERVISOR</p>
+                </div>
+            </div>
+
+            <div class="header-controls">
+                <button onclick="resetDockerBox()" class="btn-hud">REBOOT STG-06 DOCKER</button>
+                <a href="/" class="btn-hud">ARENA PORTAL</a>
+                <button onclick="adminLogout()" class="btn-hud btn-hud-danger">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- SATELLITE FLIGHT METRICS -->
+        <section class="telemetry-strip">
+            <div class="telem-box">
+                <div class="telem-label">DOWNLINK FREQUENCY</div>
+                <div class="telem-val">437.450 MHz</div>
+                <div class="telem-status"><span class="pulse-dot"></span> CARRIER LOCKED</div>
+            </div>
+            <div class="telem-box">
+                <div class="telem-label">ORBITAL INCLINATION</div>
+                <div class="telem-val">51.64°</div>
+                <div class="telem-status"><span class="pulse-dot"></span> LEO NOMINAL</div>
+            </div>
+            <div class="telem-box">
+                <div class="telem-label">GROUND STATION FEED</div>
+                <div class="telem-val">GS-04 TERMINAL</div>
+                <div class="telem-status"><span class="pulse-dot"></span> REPLAY ACTIVE</div>
+            </div>
+            <div class="telem-box">
+                <div class="telem-label">ACTIVE TEAMS</div>
+                <div class="telem-val" id="val-team-count">--</div>
+                <div class="telem-status"><span class="pulse-dot"></span> TELEMETRY SYNCHRONIZED</div>
+            </div>
+        </section>
+
+        <!-- MAIN OVERSIGHT WORKSPACE -->
+        <div class="workspace-grid">
+            <!-- TEAM MATRIX & INDIVIDUAL RESET CONTROLS -->
+            <div class="panel-box">
+                <div class="panel-title">
+                    <span>OPERATOR CLEARANCE &amp; STAGE PROGRESSION</span>
+                    <span style="font-size: 0.72rem; color: var(--text-muted);">AUTO-REFRESH: 4s</span>
+                </div>
+
+                <table class="teams-table">
+                    <thead>
+                        <tr>
+                            <th>Call Sign / Operator</th>
+                            <th>Total Flags</th>
+                            <th>Sector Progression (1 - 8)</th>
+                            <th>Admin Interventions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teams-tbody">
+                        <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Querying ground telemetry...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LIVE SUBMISSION AUDIT STREAM -->
+            <div class="panel-box">
+                <div class="panel-title">
+                    <span>DOWNLINK AUDIT LOG</span>
+                    <span style="font-size: 0.72rem; color: var(--success-green);">LIVE FEED</span>
+                </div>
+
+                <div class="terminal-feed" id="terminal-feed-root">
+                    <div style="color: var(--text-muted);">Awaiting team telemetry submissions...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = (window.location.port === "5500" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+            ? "http://127.0.0.1:5000/api"
+            : "/api";
+
+        // Check if admin is currently authenticated
+        let adminAuth = sessionStorage.getItem("ciphernex_admin_auth");
+        if (adminAuth === "true") {
+            document.getElementById("admin-auth-overlay").classList.add("hidden");
+            startTelemetryPolling();
+        }
+
+        async function handleAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById("admin-user").value.trim();
+            const pass = document.getElementById("admin-pass").value.trim();
+            const errMsg = document.getElementById("auth-err-msg");
+
+            errMsg.textContent = "[*] Authenticating with Flight Director core...";
+
+            try {
+                const res = await fetch(`${API_URL}/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: user, password: pass })
+                });
+                const data = await res.json();
+
+                if (res.ok && data.user && data.user.is_admin) {
+                    sessionStorage.setItem("ciphernex_admin_auth", "true");
+                    document.getElementById("admin-auth-overlay").classList.add("hidden");
+                    startTelemetryPolling();
+                } else {
+                    errMsg.textContent = "[-] Invalid credentials or unauthorized clearance.";
+                }
+            } catch (err) {
+                // Direct fallback check if backend is not yet restarted with new route
+                if (user === "admin" && pass === "admin1234") {
+                    sessionStorage.setItem("ciphernex_admin_auth", "true");
+                    document.getElementById("admin-auth-overlay").classList.add("hidden");
+                    startTelemetryPolling();
+                } else {
+                    errMsg.textContent = "[-] Command uplink failed. Check backend connection.";
+                }
+            }
+        }
+
+        function adminLogout() {
+            sessionStorage.removeItem("ciphernex_admin_auth");
+            location.reload();
+        }
+
+        function startTelemetryPolling() {
+            pollOverview();
+            setInterval(pollOverview, 4000);
+        }
+
+        async function pollOverview() {
+            try {
+                const res = await fetch(`${API_URL}/admin/overview`);
+                const data = await res.json();
+                renderTeams(data.teams);
+                renderLogs(data.logs);
+                document.getElementById("val-team-count").textContent = data.teams ? data.teams.length : 0;
+            } catch (err) {
+                console.error("Telemetry query failed:", err);
+            }
+        }
+
+        function renderTeams(teams) {
+            const tbody = document.getElementById("teams-tbody");
+            if (!teams || !teams.length) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:30px;">No operator teams registered yet.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = teams.map(t => `
+                <tr>
+                    <td>
+                        <div class="team-name-cell">${t.team_name}</div>
+                        <div class="team-contact">${t.member_count} op(s) • ${t.member_emails}</div>
+                    </td>
+                    <td>
+                        <strong style="color: var(--brand-cyan); font-family: var(--font-mono); font-size: 1rem;">
+                            ${t.total_flags} / 8
+                        </strong>
+                    </td>
+                    <td>
+                        ${[1,2,3,4,5,6,7,8].map(stg => `
+                            <span class="stage-pill ${t.stages_solved.includes(stg) ? 'stage-cleared' : 'stage-pending'}">${stg}</span>
+                        `).join("")}
+                    </td>
+                    <td>
+                        <div class="action-cell">
+                            <select class="select-stage-reset" id="reset-sel-${t.team_name}">
+                                <option value="1">Revoke from STG-01</option>
+                                <option value="2">Revoke from STG-02</option>
+                                <option value="3">Revoke from STG-03</option>
+                                <option value="4">Revoke from STG-04</option>
+                                <option value="5">Revoke from STG-05</option>
+                                <option value="6">Revoke from STG-06</option>
+                                <option value="7">Revoke from STG-07</option>
+                                <option value="8">Revoke from STG-08</option>
+                            </select>
+                            <button class="btn-row-reset" onclick="resetTeamStage('${t.team_name}')">Revoke</button>
+                            <button class="btn-row-reset" style="border-color: #EF4444; color:#EF4444;" onclick="resetTeamAll('${t.team_name}')">Wipe</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function renderLogs(logs) {
+            const container = document.getElementById("terminal-feed-root");
+            if (!logs || !logs.length) return;
+
+            container.innerHTML = logs.map(l => `
+                <div class="log-entry ${l.status}">
+                    <div class="log-meta">
+                        <span style="color: var(--brand-cyan); font-weight:700;">${l.team_name} // STG-0${l.stage_id}</span>
+                        <span>${l.created_at || 'JUST NOW'}</span>
+                    </div>
+                    <div>
+                        STATUS: <strong style="color:${l.status === 'SUCCESS' ? 'var(--success-green)' : 'var(--danger-red)'};">${l.status}</strong>
+                    </div>
+                    <div style="color: var(--text-muted); font-size: 0.72rem; word-break: break-all; margin-top: 2px;">
+                        PAYLOAD: ${l.submitted_flag} (IP: ${l.ip_address || '127.0.0.1'})
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        async function resetTeamAll(teamName) {
+            if (!confirm(`Confirm complete wipe for team "${teamName}"? All solved flags will be cleared.`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/reset-team-all`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ team_name: teamName })
+                });
+                const data = await res.json();
+                alert(data.message || "Reset completed.");
+                pollOverview();
+            } catch (err) {
+                alert("Failed to reset team.");
+            }
+        }
+
+        async function resetTeamStage(teamName) {
+            const selectEl = document.getElementById(`reset-sel-${teamName}`);
+            const stageId = selectEl.value;
+
+            if (!confirm(`Revoke Stage ${stageId} and subsequent stages for team "${teamName}"?`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/reset-team-stage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ team_name: teamName, stage_id: stageId })
+                });
+                const data = await res.json();
+                alert(data.message || "Stage revoked.");
+                pollOverview();
+            } catch (err) {
+                alert("Failed to revoke stage.");
+            }
+        }
+
+        async function resetDockerBox() {
+            if (!confirm("Confirm reboot of Stage 6 Docker container?")) return;
+            try {
+                const res = await fetch(`${API_URL}/admin/reset-stage6`, { method: "POST" });
+                const data = await res.json();
+                alert(data.message || "Docker reset triggered.");
+            } catch (err) {
+                alert("Reset execution failed.");
+            }
+        }
+    </script>
+</body>
+</html>
