@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /var/run/sshd
 
 RUN useradd -m -s /bin/bash ground-user && \
-    echo "ground-user:orbitalpass301" | chpasswd
+    echo "ground-user:SatTrack#2024!Ops" | chpasswd
 
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
