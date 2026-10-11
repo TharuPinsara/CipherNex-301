@@ -5,6 +5,8 @@
 [![Reverse%20Proxy](https://img.shields.io/badge/Web%20Server-Nginx-green.svg)](https://nginx.org/)
 [![Backend](https://img.shields.io/badge/API-Flask%20%2F%20Python%203-blue.svg)](https://flask.palletsprojects.com/)
 
+🚀 **Live Demo:** [ciphernex.tharu.site](https://ciphernex.tharu.site)
+
 **CipherNex-301** is an 8-stage interactive Capture The Flag (CTF) security challenge platform built for the SLIIT *Penetration Testing (IE3132)* module (Group 45). It simulates the unexpected reactivation of a decommissioned experimental satellite acting as a covert Command & Control (C2) relay.
 
 Players progress through a realistic space-security narrative while solving challenges spanning OSINT, network forensics, memory forensics, cryptography, steganography, Linux privilege escalation, and hybrid network-crypto analysis.
